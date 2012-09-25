@@ -451,13 +451,15 @@ PredictOcc <- function(params,Xo,Xd,Y,nVisits)
     nOccCovs <- length(Xo) # number of occupancy covs
     nDetCovs <- dim(Xd)[2] # number of detection covs
  
-	# check input arguments
-	if (length(params) != (nOccCovs + nDetCovs)) {
-		stop("The number of parameters is not consistent with number of occupancy and detetction covariates")
-	}
-		
-    alpha <- params[1:nOccCovs] # get estimated alpha
-    beta <- params[(nOccCovs+1):(nOccCovs+nDetCovs)] # get estimated beta
+#	# check input arguments
+#	if (length(params) != (nOccCovs + nDetCovs)) {
+#		stop("The number of parameters is not consistent with number of occupancy and detetction covariates")
+#	}
+#		
+#    alpha <- params[1:nOccCovs] # get estimated alpha
+#    beta <- params[(nOccCovs+1):(nOccCovs+nDetCovs)] # get estimated beta
+	alpha <- params$alpha
+	beta  <- params$beta
     
     if (!is.null(Y)) {
         logProbOcc1 <- log(Logistic(Xo %*% alpha))
@@ -501,13 +503,15 @@ PredictDet <- function(params,Xo,Xd)
     nOccCovs <- length(Xo) # number of occupancy covs
     nDetCovs <- length(Xd) # number of detection covs
 	
-	# check input arguments
-	if (length(params) != (nOccCovs + nDetCovs)) {
-		stop("The number of parameters is not consistent with number of occupancy and detetction covariates")
-	}
-    
-    alpha <- params[1:nOccCovs] # get estimated alpha
-    beta <- params[(nOccCovs+1):(nOccCovs+nDetCovs)] # get estimated beta
+#	# check input arguments
+#	if (length(params) != (nOccCovs + nDetCovs)) {
+#		stop("The number of parameters is not consistent with number of occupancy and detetction covariates")
+#	}
+#    
+#    alpha <- params[1:nOccCovs] # get estimated alpha
+#    beta <- params[(nOccCovs+1):(nOccCovs+nDetCovs)] # get estimated beta
+	alpha <- params$alpha
+	beta  <- params$beta
     
     detection <- Logistic(Xo %*% alpha) * Logistic(Xd %*% beta)
     return(detection)

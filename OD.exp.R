@@ -129,8 +129,8 @@ trTrueOccs <- trData$trueOccs
     teBayesOccProb <- array(0,c(nTeSites,1))
     teModelOccProb <- array(0,c(nTeSites,1))
     for (i in 1:nTeSites) {
-        teBayesOccProb[i] <- PredictOcc(c(alpha,beta),teOccCovs[i,],teDetCovs[i,,],teDetHists[i,],teVisits[i]) 
-        teModelOccProb[i] <- PredictOcc(c(alphaOD,betaOD),teOccCovs[i,],teDetCovs[i,,],teDetHists[i,],teVisits[i]) 
+        teBayesOccProb[i] <- PredictOcc(params,teOccCovs[i,],teDetCovs[i,,],teDetHists[i,],teVisits[i]) 
+        teModelOccProb[i] <- PredictOcc(params,teOccCovs[i,],teDetCovs[i,,],teDetHists[i,],teVisits[i]) 
     } # i
     trueOcc <- sum(round(teBayesOccProb) == teTrueOccs) / nTeSites
     predOcc <- sum(round(teModelOccProb) == teTrueOccs) / nTeSites
@@ -143,8 +143,8 @@ trTrueOccs <- trData$trueOccs
     teModelDetHists <- array(0,c(nTeSites,nVisits))
     for (i in 1:nTeSites) {
         for (t in 1:teVisits[i]) {
-            teBayesDetHists[i,t] <- PredictDet(c(alpha,beta),teOccCovs[i,],teDetCovs[i,t,]) 
-            teModelDetHists[i,t] <- PredictDet(c(alphaOD,betaOD),teOccCovs[i,],teDetCovs[i,t,]) 
+            teBayesDetHists[i,t] <- PredictDet(params,teOccCovs[i,],teDetCovs[i,t,]) 
+            teModelDetHists[i,t] <- PredictDet(params,teOccCovs[i,],teDetCovs[i,t,]) 
         }
     }
     trueDet <- sum(sum(round(teBayesDetHists) == teDetHists)) / (sum(teVisits))
